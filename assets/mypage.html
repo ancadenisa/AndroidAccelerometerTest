@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; user-scalable=0;" />
+<title>My HTML</title>
+
+<body style="background-color: #ffe6e6">
+	<h1 align="center">Webview</h1>
+	<p id="debug"></p>
+	<div class="main">
+		<h2>Device Orientation</h2>
+		<table>
+			<tr>
+				<td>Event Supported</td>
+				<td id="doEvent"></td>
+			</tr>
+			<tr>
+				<td>Tilt Left/Right [gamma]</td>
+				<td id="doTiltLR"></td>
+			</tr>
+			<tr>
+				<td>Tilt Front/Back [beta]</td>
+				<td id="doTiltFB"></td>
+			</tr>
+			<tr>
+				<td>Direction [alpha]</td>
+				<td id="doDirection"></td>
+			</tr>
+		</table>
+	</div>
+	
+	<button onclick="functionx()"> </button>
+
+</body>
+
+<script type="text/javascript">
+	var tiltLR, tiltFB, dir;
+	if (window.DeviceOrientationEvent) {
+		document.getElementById("doEvent").innerHTML = "DeviceOrientation";
+		// Listen for the deviceorientation event and handle the raw data
+		window.addEventListener('deviceorientation', function(eventData) {
+			// gamma is the left-to-right tilt in degrees, where right is positive
+			tiltLR = eventData.gamma;
+
+			// beta is the front-to-back tilt in degrees, where front is positive
+			tiltFB = eventData.beta;
+
+			// alpha is the compass direction the device is facing in degrees
+			dir = eventData.alpha
+
+			// call our orientation event handler
+			deviceOrientationHandler(tiltLR, tiltFB, dir);
+		}, false);
+	} else {
+		document.getElementById("doEvent").innerHTML = "Not supported."
+	}
+	
+	
+	window.addEventListener('orientationchange', handleOrientation, false);
+	function handleOrientation() {
+		if (orientation == 0) {
+		  console.log("0");
+		}
+		else if (orientation == 90) {
+			console.log("90");
+		}
+		else if (orientation == -90) {
+			console.log("-90");
+		}
+		else if (orientation == 180) {
+			console.log("180");
+		}
+		else {
+		}
+	}
+	
+	var i = 0;
+	function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+		document.getElementById("debug").innerHTML = i++;
+		document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
+		document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
+		document.getElementById("doDirection").innerHTML = Math.round(dir);
+		
+	}
+	function functionx() {
+		var t = 0;
+		t ++;
+	}
+</script>
+
+</head>
+
+</html>
