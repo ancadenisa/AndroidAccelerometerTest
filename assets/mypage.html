@@ -1,13 +1,14 @@
+<!-- This page was made initially for webview rendering inside an android apllication, but NOW it works  ONLY by copying it into the local storage
+     of android phone and accessing it through google chrome browser. -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width; user-scalable=0;" />
+<meta name="viewport"
+	content="width = device-width, user-scalable = 0, initial-scale = 1.0, maximum-scale = 1.0" />
 <title>My HTML</title>
-
 <body style="background-color: #ffe6e6">
 	<h1 align="center">Webview</h1>
-	<p id="debug"></p>
 	<div class="main">
 		<h2>Device Orientation</h2>
 		<table>
@@ -29,13 +30,15 @@
 			</tr>
 		</table>
 	</div>
-	
-	<button onclick="functionx()"> </button>
+
+	<button onclick="functionx()"></button>
 
 </body>
 
 <script type="text/javascript">
 	var tiltLR, tiltFB, dir;
+	
+	//GRYOSCOPE - deviceorientation WORKING on: GC in Android
 	if (window.DeviceOrientationEvent) {
 		document.getElementById("doEvent").innerHTML = "DeviceOrientation";
 		// Listen for the deviceorientation event and handle the raw data
@@ -51,12 +54,13 @@
 
 			// call our orientation event handler
 			deviceOrientationHandler(tiltLR, tiltFB, dir);
+			console.log("Device orientation!")
 		}, false);
 	} else {
 		document.getElementById("doEvent").innerHTML = "Not supported."
 	}
 	
-	
+	//NOT working in any of android browsers
 	window.addEventListener('orientationchange', handleOrientation, false);
 	function handleOrientation() {
 		if (orientation == 0) {
@@ -72,21 +76,25 @@
 			console.log("180");
 		}
 		else {
+			
 		}
 	}
 	
-	var i = 0;
 	function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-		document.getElementById("debug").innerHTML = i++;
 		document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
 		document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
 		document.getElementById("doDirection").innerHTML = Math.round(dir);
 		
 	}
 	function functionx() {
-		var t = 0;
-		t ++;
+		console.log("Console works");
 	}
+	
+	//ACCELEROMETER - not working in any of android browsers
+	window.addEventListener('devicemotion', function(event) {
+		  console.log(event.acceleration.x + ' m/s2');
+		});
+	
 </script>
 
 </head>
